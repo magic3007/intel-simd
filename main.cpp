@@ -30,24 +30,22 @@ int main(int argc, char *argv[]){
 
   yuv_src.ReadFromYUVFile(fileName);
 
-  for(size_t alpha = 0; alpha < 255; alpha += 3){
-    ImplSimple simple;
+  ImplSimple simple;
 
-    #define LIST_OF_IMPL \
+  #define LIST_OF_IMPL \
     X(simple)
 
-    #define X(name) \
-    { \
-      string nameString = string(#name); \
-      string outFile = nameString + "_output_" \
-        + std::to_string(alpha) + ".yuv"; \
+  #define X(name) { \
+    for (size_t alpha = 0; alpha < 255; alpha += 3) { \
       do_work(name, &yuv_src, &yuv_dst, &rgb, alpha); \
+      string nameString = string(#name); \
+      string outFile = nameString + "_output_" + std::to_string(alpha) + ".yuv"; \
       yuv_dst.WriteToYUVFile(outFile); \
-    }
-    LIST_OF_IMPL
-    #undef X
-
-    #undef LIST_OF_IMPL
+    } \
   }
+  LIST_OF_IMPL
+  #undef X
+
+  #undef LIST_OF_IMPL
   return 0;
 }
