@@ -1,0 +1,6 @@
+# IDE config
+.idea
+
+# binary files
+out/
+cmake-*/
