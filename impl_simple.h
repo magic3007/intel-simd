@@ -6,21 +6,15 @@
 #include "rgb.h"
 #include "impl.h"
 
+static inline uint8_t clamp(int x){
+  return (x < 0) ? 0 : (255 < x) ? 255 : x;
+}
+
 class ImplSimple : public Impl{
   void YUV2RGB(YUV420 *yuv, RGB *rgb) override;
   void AlphaBlend(RGB *rgb, uint8_t alpha) override;
   void RGB2YUV(RGB *rgb, YUV420 *yuv) override;
 };
-
-static inline uint8_t clamp(int x) {
-  if (x < 0){
-    return 0;
-  }else if (x > 255){
-    return 255;
-  }else{
-    return x;
-  }
-}
 
 void ImplSimple::YUV2RGB(YUV420 *yuv, RGB *rgb) {
   assert(yuv->height_ == rgb->height_);
@@ -56,12 +50,12 @@ void ImplSimple::RGB2YUV(RGB *rgb, YUV420 *yuv) {
   auto b = rgb->b_;
 
   for(size_t i = 0; i < rgb->size_; i++){
-    int rr = r[i];
-    int gg = g[i];
-    int bb = b[i];
-    y[i] = clamp(((66 * rr + 129 * gg + 25 * bb + 128) >> 8) + 16);
-    u[i] = clamp(((-38 * rr - 74 * gg + 112 * bb + 128) >> 8) + 128);
-    v[i] = clamp(((112 * rr - 94 * gg - 18 * bb + 128) >> 8) + 128);
+    int c = r[i];
+    int d = g[i];
+    int e = b[i];
+    y[i] = clamp(((66 * c + 129 * d + 25 * e + 128) >> 8) + 16);
+    u[i] = clamp(((-38 * c - 74 * d + 112 * e + 128) >> 8) + 128);
+    v[i] = clamp(((112 * c - 94 * d - 18 * e + 128) >> 8) + 128);
   }
 
 }
@@ -71,9 +65,9 @@ void ImplSimple::AlphaBlend(RGB *rgb, uint8_t alpha) {
   auto g = rgb->g_;
   auto b = rgb->b_;
   for(size_t i = 0; i < rgb->size_; i++){
-    r[i] = (int)alpha * r[i] / 256;
-    g[i] = (int)alpha * g[i] / 256;
-    b[i] = (int)alpha * b[i] / 256;
+    r[i] = (uint32_t)alpha * r[i] >> 8;
+    g[i] = (uint32_t)alpha * g[i] >> 8;
+    b[i] = (uint32_t)alpha * b[i] >> 8;
   }
 }
 
