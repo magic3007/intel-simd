@@ -2,5 +2,6 @@
 .idea
 
 # binary files
+build/
 out/
-cmake-*/
+cmake*/
