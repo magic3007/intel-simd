@@ -1,5 +1,5 @@
 # Intel-SIMD
-⚡ Leverage Intel vectorization technique **MMX**, **SSE2** and **AVX** to accelerate the processing of converting YUV420 image into RGB image.
+⚡ Leverage Intel vectorization technique **MMX**, **SSE2** and **AVX** to accelerate the process of converting YUV420 image into RGB image.
 ## Example
 ```bash
 mkdir build && cd build
