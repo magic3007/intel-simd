@@ -52,6 +52,7 @@ void ImplSimd<SIMD>::YUV2RGB(YUV420 *yuv, RGB *rgb) {
     store(rli(add(add(mul(cn(298),c),mul(cn(409),e)),cn(128)), 8), r + i);
     store(rli(add(sub(sub(mul(cn(298),c),mul(cn(100),d)),mul(cn(208),e)), cn(128)), 8), g + i);
     store(rli(add(add(mul(cn(298),c),mul(cn(516),d)),cn(128)), 8), b + i);
+    SIMD::Empty();
   }
 }
 
@@ -81,6 +82,7 @@ void ImplSimd<SIMD>::RGB2YUV(RGB *rgb, YUV420 *yuv) {
     store(add(rli(add(add(add(mul(cn(66),c), mul(cn(129), d)), mul(cn(25), e)), cn(128)),8), cn(16)), y+i);
     store(add(rli(add(sub(sub(mul(cn(112),e), mul(cn(38), c)), mul(cn(74), d)), cn(128)),8), cn(128)), u+i);
     store(add(rli(add(sub(sub(mul(cn(112),c), mul(cn(94), d)), mul(cn(18), e)), cn(128)),8), cn(128)), v+i);
+    SIMD::Empty();
   }
 
 }
@@ -106,6 +108,7 @@ void ImplSimd<SIMD>::AlphaBlend(RGB *rgb, uint8_t alpha) {
     store(rli(mul(const_alpha, c),8),r+i);
     store(rli(mul(const_alpha, d),8),g+i);
     store(rli(mul(const_alpha, e),8),b+i);
+    SIMD::Empty();
   }
 }
 

@@ -40,6 +40,10 @@ public:
     *(uint32_t *)dst = _m_to_int(_mm_packs_pi16(a, Zero()));
   }
 
+  static inline void Empty(){
+    _mm_empty();
+  }
+
 };
 
 #endif // INTEL_SIMD_IMPL_MMX_H
