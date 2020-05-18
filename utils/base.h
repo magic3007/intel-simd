@@ -6,6 +6,12 @@
 #define INTEL_SIMD_BASE_H
 
 #include <functional>
+// uncomment to disable assert()
+// #define NDEBUG
+#include <cassert>
+
+// Use (void) to silent unused warnings.
+#define assertm(exp, msg) assert(((void)msg, exp))
 
 #define DISALLOW_COPY_AND_ASSIGN(ClassName) \
   private: \
