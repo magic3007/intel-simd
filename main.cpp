@@ -4,6 +4,8 @@
 #include "config.h"
 #include "utils/base.h"
 #include "impl_simple.h"
+#include "impl_simd.h"
+#include "impl_mmx.h"
 
 using std::string;
 
@@ -31,17 +33,20 @@ int main(int argc, char *argv[]){
   yuv_src.ReadFromYUVFile(fileName);
 
   ImplSimple simple;
+  ImplSimd<SimdMMX> mmx;
 
   #define LIST_OF_IMPL \
-    X(simple)
+    X(mmx)
 
-  #define X(name) { \
+  #define X(name) try{ \
     for (size_t alpha = 0; alpha < 255; alpha += 3) { \
       do_work(name, &yuv_src, &yuv_dst, &rgb, alpha); \
       string nameString = string(#name); \
       string outFile = nameString + "_output_" + std::to_string(alpha) + ".yuv"; \
       yuv_dst.WriteToYUVFile(outFile); \
     } \
+  }catch (const std::exception& e) { \
+    std::cerr << #name << ": " << e.what() << std::endl; \
   }
   LIST_OF_IMPL
   #undef X
