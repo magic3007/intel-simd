@@ -1,7 +1,3 @@
-//
-// Created by maiji on 05/17/2020.
-//
-
 #ifndef INTEL_SIMD_IMPL_H
 #define INTEL_SIMD_IMPL_H
 
