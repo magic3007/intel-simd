@@ -5,5 +5,10 @@
 mkdir build && cd build
 cmake -DCMAKE_BUILD_TYPE=Release ..
 make -j8
+./demo --help
 ./demo -f ../testcases/dem1.yuv
 ```
+
+## Resource
+
+- [YUView](https://github.com/IENT/YUView): The Free and Open Source Cross Platform YUV Viewer with an advanced analytics toolset

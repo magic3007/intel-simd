@@ -50,7 +50,7 @@ int main(int argc, char *argv[]){
   #define X(name) try{ \
     stopwatch::Stopwatch stopwatch; \
     stopwatch.start(); \
-    for (size_t alpha = 0; alpha < 255; alpha += 3) { \
+    for (size_t alpha = 0; alpha < 255; alpha += 1) { \
       do_work(name, &yuv_src, &yuv_dst, &rgb, alpha); \
       if (should_dump){ \
         string nameString = string(#name); \
